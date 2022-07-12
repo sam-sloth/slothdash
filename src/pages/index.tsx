@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { trpc } from "../utils/trpc";
+import { TwitterTimelineEmbed } from "react-twitter-embed";
 
 const Home: NextPage = () => {
   const hello = trpc.useQuery(["example.hello", { text: "from tRPC" }]);
@@ -14,11 +15,20 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="w-screen min-h-screen flex flex-col justify-center items-center p-4 overflow-y-scroll bg-black-950">
-        <h2 className="text-[3rem] lg:text-[5rem] md:text-[5rem] font-extrabold text-gray-700">
+      <div className="w-screen min-h-screen flex flex-col justify-center items-center p-4 overflow-y-scroll">
+        <h2 className="text-[3rem] lg:text-[5rem] md:text-[5rem] font-extrabold">
           Create <span className="text-mauve-950">T3</span> App
         </h2>
         
+        <div>User: <input type="text"></input><button>Get user feed</button></div>
+
+        <TwitterTimelineEmbed
+          sourceType="profile"
+          screenName="WHO"
+          options={{ height: 600 }}
+          theme="dark"
+        />
+
         <div className="pt-6 text-2xl text-blue-500 flex justify-center items-center w-full">
           {hello.data ? <p>{hello.data.greeting}</p> : <p>Loading..</p>}
         </div>
